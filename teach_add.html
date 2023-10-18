@@ -6,20 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teachers Add Remove</title>
     <link rel="icon" href="ima/t1.jpg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker& family-Poppins: wght@300; 400; 500; 600; 700; 800; 900&display=swap" rel="stylesheet">
     <style>
     label{display: inline-block; width: 80px}
     input,select{width: 120px}
 
     body {
-    background-color: #f0f0f0;
+    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)  no-repeat;
     padding: 20px;
+    font-family: cursive;
   }
 
   .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
+    left:18%;
+    width:50%;
+    height:87vh;
+    position:relative;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -32,6 +34,14 @@
     text-align: right;
     position: relative;
     left: 33%;
+    color:#d1e8e2;
+  }
+  h1{
+    color:#ffcb9a;
+    font-family:'Permanent Marker',cursive;
+    position: relative;
+    left: 30%;
+    font-size:300%;
   }
 
   input,
@@ -54,29 +64,53 @@
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;
-    left: 36%;
+    left: 37%;
   }
 
   button:hover {
     background-color: #2980b9;
   }
-  h1{
-    color: navy;
-    position: relative;
-    left: 38%;
-  }
+  .inputBox input
+{
+    color-scheme: dark;
+    padding: 5px 0;
+    margin-top:-2%;
+    font-size:16px;
+    margin:10px 0;
+    border:none;
+    border-bottom:2px solid white;
+    color:white;
+    background-color: transparent;
+    outline:none;
+    resize:none;
 
+}
+  select {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+option {
+      background-color: #f0f0f0;
+      color: #333;
+      font-size: 14px;
+      padding: 5px;
+    }
     
     </style>
   </head>
   <body>
+    <div class="container">
     <h1>Teachers Addition Page</h1>
-    <label>Name</label> <input id="Namebox" type="text"> <br><br>
-    <label>RollNo</label> <input id="Rollbox" type="text"> <br><br>
-    <label>Section</label> <input id="Secbox" type="text"> <br><br>
+    <div class="inputBox">
+    <label>Name</label> <input id="Namebox" type="text" required="required"> <br><br>
+    <label>BatchName</label> <input id="Rollbox" type="text" required="required"> <br><br>
+    <label>Section</label> <input id="Secbox" type="text" required="required"> <br><br>
     <label>Gender</label>
 
-    <select id="Genbox">
+    <select id="Genbox" required="required">
       <option value="Male">Male</option>
       <option value="Female">Female</option>
     </select>
@@ -86,7 +120,7 @@
     <button id="Selbtn">SELECT</button>
     <button id="Updatebtn">UPDATE</button>
     <button id="Delbtn">DELETE</button>
-
+</div>
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
