@@ -55,21 +55,21 @@ header{
     display:none;
 }
 .hero{
-    height:100%;
+    min-height:200vh;
     width:100%;
-    min-height:100vh;
     position:relative;
     display:grid;
     grid-template-columns:repeat(2,1fr);
     align-items: center;
     gap:2rem;
-    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)  no-repeat;
+    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%) repeat;
 }
 section{
     padding:0 19%;
 }
 
     button{
+        top:-25%;
     padding:10px;
     width:25%;
     position: relative;
@@ -95,7 +95,7 @@ section{
      font-size:40px;
      left:20%;
      position: absolute;
-     top:15%;
+     top:8%;
   }
   table {
     position:relative;
@@ -301,6 +301,18 @@ section{
         font-size: 55%;
       }
 } 
+.option{
+    top:-25%;
+    padding:10px;
+    width:30%;
+    position: relative;
+    font-size: 16px;
+    border-radius: 30px;
+    border:none;
+    color:#d1e8e2;
+    background-color:#434b5b;
+    left:5%;
+}
     </style>
 </head>
 
@@ -321,16 +333,13 @@ section{
     <p>Student Details</p>
     <button id="Editbtn"><a href="student_add.html">Edit</button></a>
 
-    <div class="dropdown">
-    <button style="left:65%;">Batches</button>
-    <div class="dropdown-content">
-        <a href="javascript:void(0)" id="a1">A1</a>
-        <a href="javascript:void(0)" id="a2">A2</a>
-        <a href="javascript:void(0)" id="a3">A3</a>
-    </div>
-</div>
+<select id="batchFilter" class="option">
+  <option value="All">All Batches</option>
+</select>
+
+
     <div class="container mt-3">
-        <table class="table glass" id="table_filter">
+        <table class="table glass" id="table_filter" style="margin-top: -15%;">
             <thead>
                 <th>Serial no.</th>
                 <th>Name</th>
@@ -438,45 +447,67 @@ section{
                 AddAllItemsToTable(students);
             })
         }
+
+        async function populateBatchFilter() {
+  const batchFilter = document.getElementById("batchFilter");
+
+  // Fetch batch names from Firestore
+  const querySnapshot = await getDocs(collection(db, "TheStudentsList"));
+  const batchNames = new Set();
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    batchNames.add(data.BatchName);
+  });
+
+  // Populate the Batches filter select element
+  batchNames.forEach((batchName) => {
+    const option = document.createElement("option");
+    option.value = batchName;
+    option.textContent = batchName;
+    batchFilter.appendChild(option);
+  });
+}
+
+// Call the function to populate the Batches filter on page load
+// Add this code to your existing JavaScript
+
+// Get references to the select element and the table
+const batchFilter = document.getElementById("batchFilter");
+const table = document.getElementById("table_filter");
+
+// Event listener to filter the table based on the selected batch
+batchFilter.addEventListener("change", function () {
+  const selectedBatch = batchFilter.value;
+
+  // Get all table rows
+  const rows = table.querySelector('tbody').getElementsByTagName('tr');
+
+  if (selectedBatch === "All") {
+    // Show all rows when "All Batches" is selected
+    for (let i = 0; i < rows.length; i++) {
+      rows[i].classList.remove("donotShow_row");
+    }
+  } else {
+    // Hide rows that do not match the selected batch
+    for (let i = 0; i < rows.length; i++) {
+      const batchName = rows[i].getElementsByTagName('td')[3].innerText;
+      if (batchName === selectedBatch) {
+        rows[i].classList.remove("donotShow_row");
+      } else {
+        rows[i].classList.add("donotShow_row");
+      }
+    }
+  }
+});
+
+// Call the function to populate the Batches filter on page load
+populateBatchFilter();
+
             
 
         window.onload =GetAllDataRealtime;
 
-        document.getElementById('a1').addEventListener('click', function() {
-    const table = document.getElementById('table_filter'); // Define table here
-    const tr = table.querySelector('tbody').getElementsByTagName('tr');
-    for (var i = 0; i < tr.length; i++) {
-        if (tr[i].getElementsByTagName('td')[3].innerText === 'A1') {
-            tr[i].classList.remove('donotShow_row');
-        } else {
-            tr[i].classList.add('donotShow_row');
-        }
-    }
-});
-
-document.getElementById('a2').addEventListener('click', function() {
-    const table = document.getElementById('table_filter'); // Define table here
-    const tr = table.querySelector('tbody').getElementsByTagName('tr');
-    for (var i = 0; i < tr.length; i++) {
-        if (tr[i].getElementsByTagName('td')[3].innerText === 'A2') {
-            tr[i].classList.remove('donotShow_row');
-        } else {
-            tr[i].classList.add('donotShow_row');
-        }
-    }
-});
-
-document.getElementById('a3').addEventListener('click', function() {
-    const table = document.getElementById('table_filter'); // Define table here
-     const tr = table.querySelector('tbody').getElementsByTagName('tr');
-    for (var i = 0; i < tr.length; i++) {
-        if (tr[i].getElementsByTagName('td')[3].innerText === 'A3') {
-            tr[i].classList.remove('donotShow_row');
-        } else {
-            tr[i].classList.add('donotShow_row');
-        }
-    }
-});
 let menu=document.querySelector('#menu-icon');
 let navlist=document.querySelector('.navlist');
 
