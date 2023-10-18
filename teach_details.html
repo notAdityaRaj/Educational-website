@@ -5,60 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers Data Table</title>
     <link rel="icon" href="ima/t2.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker& family-Poppins: wght@300; 400; 500; 600; 700; 800; 900&display=swap" rel="stylesheet">
     <style>
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    font-family:cursive;
+    list-style:none;
+    text-decoration:none;
+}
+header{
+    position:fixed;
+    right:0;
+    top:0;
+    z-index:1000;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:33px 9%;
+    background:transparent
+}
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:#ffcb9a;
+}
+.navlist{
+    display:flex;
+}
+.navlist a{
+    color:#ffcb9a;
+    margin-left:60px;
+    font-size:15px;
+    font-weight:600;
+    border-bottom:2px solid transparent;
+    transition: all .55s ease;
+}
+.navlist a:hover,
+.navlist a.active{
+    border-bottom:2px solid white;
+}
+#menu-icon{
+    color:white;
+    font-size:35px;
+    z-index:1001;
+    cursor:pointer;
+    display:none;
+}
+.hero{
+    height:100%;
+    width:100%;
+    min-height:100vh;
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    align-items: center;
+    gap:2rem;
+    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)  no-repeat;
+}
+section{
+    padding:0 19%;
+}
+    table {
+    position:relative;
+    border: 2px solid transparent;
+    border-collapse: collapse;
+    color:white;
+    width:80%;
+    font-size: 16px;
+    height:14%;
+    margin-left: -3%;
+    text-align: center;
+  }
 
-        body {
-            background-image: url('ima/tt1.jpg');
-            background-size: 60%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            
-        }
-
-        /* Container styles */
-        .container {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Table styles */
-        table {
-            width: 100%;
-            background-color: #343a40; /* Dark background color for the table */
-            color: white;
-        }
-
-        table th {
-            background-color: #343a40; /* Dark background color for table headers */
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: center;
-        }
-        #Editbtn{
-            position: relative;
-            left: 85%;
-        }
+  th, td {
+    padding:15px;
+    border: 1px solid transparent;
+  }
+  .glass{
+    top:30%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    position: absolute;
+    left:13%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 2px;
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }   
+  button{
+    padding:10px;
+    width:25%;
+    position: relative;
+    left:70%;
+    font-size: 16px;
+    border-radius: 30px;
+    border:none;
+    color:#d1e8e2;
+    background-color:#434b5b;
+  }
+  button a{
+    text-decoration: none;
+    color:#d1e8e2;
+    border:none;
+  }
+  button a:hover{
+    text-decoration: none;
+    color:#d1e8e2;
+  }
     </style>
 </head>
 
 <body>
-    <button id="Editbtn"><a href="ta.html">Edit</button></a>
+    <section class="hero"> 
+        <header>
+            <a href="index.html" class="logo"><i>ADIVANA</i></a>
+            <ul class="navlist">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="batch_details.html"  >Batch Details</a></li>
+                <li><a href="student_details.html">Student Details</a></li>
+                <li><a href="teacher_details" class="active">Teacher Details</a></li>
+                <li><a href="1.html">Sign out</a></li>
+            </ul>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </header>
+        <p style=" font-family:'Permanent Marker',cursive; color:#ffcb9a; font-size:40px">Teachers Details</p>
+
+    <button id="Editbtn"><a href="teach_add.html">Edit</button></a>
+  
+
     <div class="container mt-3">
-        <table class="table table-dark">
+        <table class="table glass">
             <thead>
-                <th>Sno</th>
+                <th>Serial no.</th>
                 <th>Name</th>
-                <th>Roll No</th>
+                <th>BatchName</th>
                 <th>Section</th>
                 <th>Gender</th>
             </thead>
@@ -66,7 +149,7 @@
             
         </table>
     </div>
-
+</section>
     <script type="module">
         var stdNo=0;
         var tbody=document.getElementById('tbody1');
@@ -160,9 +243,6 @@
             
 
         window.onload =GetAllDataRealtime;
-
-
-
     </script>
 </body>
 </html>
