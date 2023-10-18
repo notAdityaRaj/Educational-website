@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker& family-Poppins: wght@300; 400; 500; 600; 700; 800; 900&display=swap" rel="stylesheet">
+    <title>Batch Addition</title>
+    <style>
+    label{display: inline-block; width: 80px}
+    input,select{width: 120px}
+
+    body {
+    width: 70%;
+    height: 92vh;
+    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)no-repeat;
+    padding:20px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:aqua;
+    background-color: #fff;
+    padding:20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: inline-block;
+    width: 120px;
+    color:#d1e8e2;
+    font-family: cursive;
+    margin-right: 10px;
+    text-align: right;
+  }
+
+  input,
+  select {
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  button {
+    font-family: cursive;
+    margin-left:2%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background:  linear-gradient(to bottom, #3498db, #2980b9);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size:14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background:linear-gradient(to bottom, #2980b9, #3498db);
+  }
+.inputBox input
+{
+    color-scheme: dark;
+    padding: 5px 0;
+    margin-top:-2%;
+    font-size:16px;
+    margin:10px 0;
+    border:none;
+    border-bottom:2px solid white;
+    color:white;
+    background-color: transparent;
+    outline:none;
+    resize:none;
+
+}
+.btnNew{
+  left:40%;
+  position:relative;
+}
+select {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Style the options */
+    option {
+      background-color: #f0f0f0;
+      color: #333;
+      font-size: 14px;
+      padding: 5px;
+    }
+    </style>
+  </head>
+  <body>
+<div class="btnNew">
+    <div style="font-family:'Permanent Marker',cursive; color:#ffcb9a; font-size:250%;">Editing the Batch Details</div>
+    <br><br>
+    <div class="inputBox">
+    <label>Batch Name</label> <input id="Namebox" type="text" required="required"> <br><br>
+    <label>Batch ID</label> <input id="Rollbox" type="text" required="required"> <br><br>
+    <label>Start Time</label> <input id="Startbox" type="date" required="required" > <br><br>
+    <label>End Time</label> <input id="Endbox" type="date" required="required"> <br><br>
+    <label>Timings</label><input id="Timebox" type="time" required="required"><br><br>
+    <label>Subject Name</label> <input id="Subbox" type="text" required="required"> <br><br>
+    <label>Shift</label>
+
+    <select id="Shiftbox" required="required">
+      <option value="Morning">Morning</option>
+      <option value="Evening">Evening</option>
+    </select></div>
+
+    <br>
+    <button id="Insbtn">INSERT</button>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updatebtn">UPDATE</button>
+    <button id="Delbtn">DELETE</button>
+  </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+      import{getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
+      }
+      from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDT_ANzuq6_uYgLuhl3MW-48p8K_2Kbt2g",
+        authDomain: "batch-details.firebaseapp.com",
+        databaseURL: "https://batch-details-default-rtdb.firebaseio.com",
+        projectId: "batch-details",
+        storageBucket: "batch-details.appspot.com",
+        messagingSenderId: "574128376047",
+        appId: "1:574128376047:web:755c79cea25f68d17d731a",
+        measurementId: "G-H8NHEMRT3Z"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      
+    
+      const db =getFirestore();
+
+      let NameBox=document.getElementById("Namebox");
+      let RollBox=document.getElementById("Rollbox");
+      let StartBox=document.getElementById("Startbox");
+      let EndBox=document.getElementById("Endbox");
+      let TimeBox=document.getElementById("Timebox");
+      let SubBox=document.getElementById("Subbox");
+      let ShiftBox=document.getElementById("Shiftbox");
+
+
+      let insBtn=document.getElementById("Insbtn");
+      let selBtn=document.getElementById("Selbtn");
+      let updBtn=document.getElementById("Updatebtn");
+      let delBtn=document.getElementById("Delbtn");
+
+      async function AddDocument_AutoID(){
+        var ref=collection(db,"Batch List");
+
+        const docRef=await addDoc(
+          ref, {
+            BatchName: NameBox.value,
+            BatchID: RollBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time:TimeBox.value,
+            Subject:SubBox.value,
+            Shift: ShiftBox.value
+
+          }
+        )
+        .then(()=>{
+          alert("Data added successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+        console.log("documnet id is"+ docRef.id);
+      }
+
+      async function AddDocument_CustomID(){
+        var ref=doc(db,"Batch List",RollBox.value);
+
+        await setDoc(
+          ref, {
+            BatchName: NameBox.value,
+            BatchID: RollBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time:TimeBox.value,
+            Subject:SubBox.value,
+            Shift: ShiftBox.value
+          }
+        )
+        .then(()=>{
+          alert("Data added successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+      }
+
+      async function GetADocument(){
+        var ref=doc(db,"Batch List",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(docSnap.exists()){
+          NameBox.value=docSnap.data().BatchName;
+          StartBox.value=docSnap.data().StartTime;
+          EndBox.value=docSnap.data().EndTime;
+          TimeBox.value=docSnap.data().Time;
+          SubBox.value=docSnap.data().Subject;
+          ShiftBox.value=docSnap.data().Shift;
+
+        }
+
+        else{
+          alert("No such Document");
+        }
+      }
+
+      async function UpdateFieldsInADocument(){
+        var ref=doc(db,"Batch List",RollBox.value);
+
+        await updateDoc(
+          ref, {
+            BatchName: NameBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time:TimeBox.value,
+            Subject:SubBox.value,
+            Shift: ShiftBox.value
+          }
+        )
+        .then(()=>{
+          alert("Data updated successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+      }
+
+      async function DeleteDocumnet(){
+        var ref=doc(db,"Batch List",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(!docSnap.exists()){
+          alert("Document does not exist");
+          return;
+      }
+
+      await deleteDoc(ref)
+      .then(()=>{
+        alert("Data deleted successfully");
+      })
+      .catch((error)=>{
+        alert("Unsuccessful operation, error:"+error);
+      });
+    }
+
+
+      insBtn.addEventListener("click", AddDocument_CustomID);
+      selBtn.addEventListener("click", GetADocument);
+      updBtn.addEventListener("click", UpdateFieldsInADocument);
+      delBtn.addEventListener("click", DeleteDocumnet);
+
+
+
+    </script>
+
+  </body>
+</html>
