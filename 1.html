@@ -141,13 +141,43 @@
     a:hover {
         text-decoration: underline;
     }
+
+    @media (max-width: 1250px){
+    .contactForm {
+    width: 100%;
+    }
+} 
+    @media (max-width: 990px){
+    .contactForm {
+    width: 160%;
+    margin-left:-30%;
+    } 
+}
+    @media (max-width: 611px){
+    .contactForm {
+    width: 210%;
+    margin-left:-50%;
+    } 
+}
+    @media (max-width: 465px){
+    .contactForm {
+    width: 250%;
+    margin-left:-70%;
+    } 
+}
+    @media (max-width: 391px){
+    .contactForm {
+    width: 290%;
+    margin-left:-90%;
+    } 
+}
     </style>
 </head>
 <body>
     <form id="MainForm" class="w-25 m-4">
         <div class="contactForm">
-        <h2>Log In</h2>
-    <div  class="inputBox">
+         <h2>Log In</h2>
+        <div  class="inputBox">
         <input type="email" id="emailInp" name=""  required="required">
         <span for="floatingInput">Email address</span>
       </div>
