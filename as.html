@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students Add Remove</title>
+    <link rel="icon" href="imag/as2.jpg" type="image/x-icon">
+    <style>
+    label{display: inline-block; width: 80px}
+    input,select{width: 120px}
+
+    body {
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: inline-block;
+    width: 120px;
+    margin-right: 10px;
+    text-align: right;
+    position: relative;
+    left: 33%;
+  }
+  h1{
+    color: navy;
+    position: relative;
+    left: 38%;
+  }
+
+  input,
+  select {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+    left: 33%;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    left: 37%;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+   
+    </style>
+  </head>
+  <body>
+    <h1>Student Addition Page</h1>
+    <label>Name</label> <input id="Namebox" type="text"> <br><br>
+    <label>RollNo</label> <input id="Rollbox" type="text"> <br><br>
+    <label>BatchName</label> <input id="Bnbox" type="text"> <br><br>
+    <label>Section</label> <input id="Secbox" type="text"> <br><br>
+    <label>Gender</label>
+
+    <select id="Genbox">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select><br><br>
+    
+<br>
+<br>
+    <button id="Insbtn">INSERT</button>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updatebtn">UPDATE</button>
+    <button id="Delbtn">DELETE</button>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+      import{getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
+      }
+      from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAE6OhXIxNQZ1csVGZj1-KLX8kTQkXmelE",
+        authDomain: "ar-page.firebaseapp.com",
+        projectId: "ar-page",
+        storageBucket: "ar-page.appspot.com",
+        messagingSenderId: "114042234965",
+        appId: "1:114042234965:web:abb4da8b18d98b0d4fccdc",
+        measurementId: "G-5HJP706T9M"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      
+    
+      const db =getFirestore();
+
+      let NameBox=document.getElementById("Namebox");
+      let RollBox=document.getElementById("Rollbox");
+      let SecBox=document.getElementById("Secbox");
+      let GenBox=document.getElementById("Genbox");
+      let BnBox=document.getElementById("Bnbox");
+
+      let insBtn=document.getElementById("Insbtn");
+      let selBtn=document.getElementById("Selbtn");
+      let updBtn=document.getElementById("Updatebtn");
+      let delBtn=document.getElementById("Delbtn");
+
+      async function AddDocument_AutoID(){
+        var ref=collection(db,"TheStudentsList");
+
+        const docRef=await addDoc(
+          ref, {
+            NameOfStd: NameBox.value,
+            RollNo: RollBox.value,
+            Section: SecBox.value,
+            Gender: GenBox.value,
+            BatchName: BnBox.value
+          }
+        )
+        .then(()=>{
+          alert("Data added successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+        console.log("documnet id is"+ docRef.id);
+      }
+
+      async function AddDocument_CustomID(){
+        var ref=doc(db,"TheStudentsList",RollBox.value);
+
+        await setDoc(
+          ref, {
+            NameOfStd: NameBox.value,
+            RollNo: RollBox.value,
+            Section: SecBox.value,
+            Gender: GenBox.value,
+            BatchName: BnBox.value
+
+          }
+        )
+        .then(()=>{
+          alert("Data added successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+      }
+
+      async function GetADocument(){
+        var ref=doc(db,"TheStudentsList",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(docSnap.exists()){
+          NameBox.value=docSnap.data().NameOfStd;
+          SecBox.value=docSnap.data().Section;
+          GenBox.value=docSnap.data().Gender;
+          BnBox.value=docSnap.data().BatchName;
+        }
+
+        else{
+          alert("No such Document");
+        }
+      }
+
+      async function UpdateFieldsInADocument(){
+        var ref=doc(db,"TheStudentsList",RollBox.value);
+
+        await updateDoc(
+          ref, {
+            NameOfStd: NameBox.value,
+            Section: SecBox.value,
+            Gender: GenBox.value,
+            BatchName: BnBox.value
+          }
+        )
+        .then(()=>{
+          alert("Data updated successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+      }
+
+      async function DeleteDocumnet(){
+        var ref=doc(db,"TheStudentsList",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(!docSnap.exists()){
+          alert("Document does not exist");
+          return;
+      }
+
+      await deleteDoc(ref)
+      .then(()=>{
+        alert("Data deleted successfully");
+      })
+      .catch((error)=>{
+        alert("Unsuccessful operation, error:"+error);
+      });
+    }
+
+
+      insBtn.addEventListener("click", AddDocument_CustomID);
+      selBtn.addEventListener("click", GetADocument);
+      updBtn.addEventListener("click", UpdateFieldsInADocument);
+      delBtn.addEventListener("click", DeleteDocumnet);
+
+
+
+    </script>
+
+  </body>
+</html>
