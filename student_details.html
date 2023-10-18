@@ -70,11 +70,10 @@ section{
 }
 
     button{
-    top:17%;
     padding:10px;
-    width:10%;
-    position: absolute;
-    left:80%;
+    width:25%;
+    position: relative;
+    left:200%;
     font-size: 16px;
     border-radius: 30px;
     border:none;
@@ -125,6 +124,183 @@ section{
     border:1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
+  .dropdown {
+    position: relative;
+   display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color:#434b5b;
+    color:#d1e8e2;
+    min-width: 160px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+    
+  .dropdown-content a {
+    color:#d1e8e2;
+    border-radius: 20px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content a:hover {background-color: #38435a;}
+  .dropdown:hover .dropdown-content {display: block;}
+  .donotShow_row {
+    display: none;
+}
+@media(max-width:1535px) {
+    header{
+        padding:15px 3%;
+        transition:.2s;
+    }
+    .icons{
+        padding:0 3%;
+        transition:.2s;
+    }
+    .scroll-down{
+        right:3%;
+        transition:.2s;
+    }
+
+}
+@media(max-width:1460px){
+    section{
+        padding:0 12%;
+        transition: .2s;
+    }
+    .batch-text{
+        left:-10%;
+    }
+}
+
+@media (max-width:1340px){
+    .hero-img img{
+        width:100%;
+        height:auto;
+    }
+    .hero-text h1{
+        font-size:75px;
+        margin:0 0 30px;
+    }
+    .batch-text{
+        margin-left:-11%;
+    }
+
+}
+@media(max-width:1195px){
+    section{
+        padding:0 3%;
+        transition:.2s;
+    }
+    .hero-text{
+        padding-top:115px;
+    }
+    .hero-img{
+        text-align:center;
+        margin-right: 100px;
+        size:70%
+    }
+    hero-img img{
+        width:560px;
+        height:auto;
+    }
+    .hero{
+        height:100%;
+        gap:1rem;
+        grid-template-columns:1fr ;
+    }
+    .icons{
+        display:none;
+    }
+    .scroll-down{
+        display:none;
+    }
+    .batch-text{
+        margin-left:5%;
+    }
+}
+@media(max-width:990px){
+    #menu-icon{
+        display:block;
+    }
+    .navlist{
+        position:absolute;
+        border-radius: 0.5em;
+        right:-100%;
+        width:300px;
+        height:4vh;
+        background:#323741;
+        border:1px #363a43 solid;
+        box-shadow: 0 0.5em 1em rgba(0,0,0,0.2);
+        display:flex;
+        align-items:center;
+        flex-direction:column;
+        padding:200px 20px;
+        transition:all .55s ease;
+    }
+    .navlist a{
+        margin-left:0;
+        display:block;
+        margin:7px 0;
+    }
+    .navlist.open{
+        right:0;
+    }
+    .dropdown .dropbtn {
+        font-size: 14px;
+        padding: 10px 16px; /* Adjust padding for smaller screens */
+        left: auto; /* Remove the left positioning */
+    }
+}
+ @media(max-width:790px){
+    input[type="date"]{
+        font-size: 80%;
+      }
+}
+@media(max-width:680px){
+    .hero-img img{
+        width:100%;
+        height:auto;
+
+    }
+    input[type="date"]{
+        font-size: 75%;
+
+      }
+}
+@media(max-width:670px){
+    .hero-img img{
+        width:100%;
+        height:auto;
+
+    }
+    input[type="date"]{
+        font-size: 70%;
+
+      }
+}
+@media(max-width:620px){
+    .hero-img img{
+        width:100%;
+        height:auto;
+    }
+    input[type="date"]{
+        font-size: 60%;
+      }
+} 
+@media(max-width:570px){
+    .hero-img img{
+        width:100%;
+        height:auto;
+    }
+    input[type="date"]{
+        font-size: 55%;
+      }
+} 
     </style>
 </head>
 
@@ -135,8 +311,8 @@ section{
             <ul class="navlist">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="batch_details.html" >Batch Details</a></li>
-                <li><a href="student_details.html"  class="active">Student Details</a></li>
-                <li><a href="#">Teacher Details</a></li>
+                <li><a href="student_details.html" class="active">Student Details</a></li>
+                <li><a href="teach_details.html">Teacher Details</a></li>
                 <li><a href="1.html">Sign out</a></li>
             </ul>
             <div class="bx bx-menu" id="menu-icon"></div>
@@ -144,11 +320,19 @@ section{
 
     <p>Student Details</p>
     <button id="Editbtn"><a href="student_add.html">Edit</button></a>
+
+    <div class="dropdown">
     <button style="left:65%;">Batches</button>
+    <div class="dropdown-content">
+        <a href="javascript:void(0)" id="a1">A1</a>
+        <a href="javascript:void(0)" id="a2">A2</a>
+        <a href="javascript:void(0)" id="a3">A3</a>
+    </div>
+</div>
     <div class="container mt-3">
-        <table class="table glass">
+        <table class="table glass" id="table_filter">
             <thead>
-                <th>Sno</th>
+                <th>Serial no.</th>
                 <th>Name</th>
                 <th>Roll No</th>
                 <th>Batch Name</th>
@@ -258,8 +442,48 @@ section{
 
         window.onload =GetAllDataRealtime;
 
+        document.getElementById('a1').addEventListener('click', function() {
+    const table = document.getElementById('table_filter'); // Define table here
+    const tr = table.querySelector('tbody').getElementsByTagName('tr');
+    for (var i = 0; i < tr.length; i++) {
+        if (tr[i].getElementsByTagName('td')[3].innerText === 'A1') {
+            tr[i].classList.remove('donotShow_row');
+        } else {
+            tr[i].classList.add('donotShow_row');
+        }
+    }
+});
 
+document.getElementById('a2').addEventListener('click', function() {
+    const table = document.getElementById('table_filter'); // Define table here
+    const tr = table.querySelector('tbody').getElementsByTagName('tr');
+    for (var i = 0; i < tr.length; i++) {
+        if (tr[i].getElementsByTagName('td')[3].innerText === 'A2') {
+            tr[i].classList.remove('donotShow_row');
+        } else {
+            tr[i].classList.add('donotShow_row');
+        }
+    }
+});
 
+document.getElementById('a3').addEventListener('click', function() {
+    const table = document.getElementById('table_filter'); // Define table here
+     const tr = table.querySelector('tbody').getElementsByTagName('tr');
+    for (var i = 0; i < tr.length; i++) {
+        if (tr[i].getElementsByTagName('td')[3].innerText === 'A3') {
+            tr[i].classList.remove('donotShow_row');
+        } else {
+            tr[i].classList.add('donotShow_row');
+        }
+    }
+});
+let menu=document.querySelector('#menu-icon');
+let navlist=document.querySelector('.navlist');
+
+menu.onclick=()=>{
+    menu.classList.toggle('bx-x');
+    navlist.classList.toggle('open');
+};
     </script>
 </body>
 </html>
