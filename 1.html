@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,500;1,500&family=Roboto+Slab&family=Satisfy&display=swap" rel="stylesheet">
+    </head>
+    <style>
+        body {
+        background-image: url('images/lb.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: 'Roboto Slab', serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+
+    h1 {
+        font-size: 36px;
+        color: #333;
+    }
+    h2{
+        color: yellow;
+        position: relative;
+        /* left: 8%; */
+    }
+    h3{
+        color: yellow;
+    }
+
+    p {
+        font-size: 18px;
+        color: #555;
+    }
+
+    /* Style your sign-up form or content here */
+
+    /* Example form input style */
+    .contactForm{
+    border-radius: 20px;
+    width:100%;
+    height:45vh;
+    padding:40px;
+    background:#fff;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.contactForm h2{
+  text-align: center;
+  font-size:40px;
+  color:yellow;
+  font-weight:100;
+
+}
+.contactForm .inputBox
+{
+    position:relative;
+    width:100%;
+    margin-top:10px;
+}
+.contactForm .inputBox input,
+.contactForm .inputBox textarea
+{
+  color-scheme: dark;
+    color:white;
+    background-color: rgba(0, 0, 0, 0.6);
+    width:100%;
+    padding: 5px 0;
+    font-size:16px;
+    margin:10px 0;
+    border:none;
+    border-bottom:2px solid white;
+    outline:none;
+    resize:none;
+}
+.contactForm .inputBox span{
+  color:white;
+    position:absolute;
+    left:0;
+    padding: 5px 0;
+    font-size:16px;
+    margin:10px 0;
+    pointer-events:none;
+    transition:0.5s;
+}
+.contactForm .inputBox input:focus ~ span,
+.contactForm .inputBox input:valid ~span,
+.contactForm .inputBox textarea:focus ~ span,
+.contactForm .inputBox textarea:valid ~span
+{
+    color:#e91e63;
+    font-size:12px;
+    transform:translateY(-20px);
+}
+.contactForm .inputBox input[type='submit']
+{
+    width:100px;
+    background:#00bcd4;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    padding:10px 20px;
+    font-size:18px;
+    border-radius:5px
+}
+
+    button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Style links */
+    a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 1250px){
+    .contactForm {
+    width: 100%;
+    }
+} 
+    @media (max-width: 990px){
+    .contactForm {
+    width: 160%;
+    margin-left:-30%;
+    } 
+}
+    @media (max-width: 611px){
+    .contactForm {
+    width: 210%;
+    margin-left:-50%;
+    } 
+}
+    @media (max-width: 465px){
+    .contactForm {
+    width: 250%;
+    margin-left:-70%;
+    } 
+}
+    @media (max-width: 391px){
+    .contactForm {
+    width: 290%;
+    margin-left:-90%;
+    } 
+}
+.sign{
+        color:white;
+        top:-2%;
+        position: relative;
+        font-size: small;
+        text-align: center;
+        font-family: 'Roboto Slab', serif;
+    }
+    /* CSS for the overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    text-align: center;
+}
+
+/* CSS for the popup */
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    text-align: center;
+}
+
+.popup h3 {
+    font-size: 24px;
+    color: red;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popup-close:hover {
+    color: darkred;
+}
+
+    </style>
+</head>
+<body>
+    <form id="MainForm" class="w-25 m-4">
+        <div class="contactForm">
+         <h2>Log In</h2>
+        <div  class="inputBox">
+        <input type="email" id="emailInp" name=""  required="required">
+        <span for="floatingInput">Email address</span>
+      </div>
+      <div  class="inputBox">
+        <input type="password" id="passwordInp" name=""  required="required">
+        <span for="floatingPassword">Password</span>
+      </div>
+      <pre class="sign">New to <i>ADIVANA</i>?<a href="sign.html"> Sign up</a></pre>
+      <button type="submit" class="btn btn-primary" style="float: right;">Log In</button>
+
+      <div id="popupOverlay" class="popup-overlay">
+        <div id="popup" class="popup">
+            <span id="popupClose" class="popup-close">&times;</span>
+            <h3>Error</h3>
+            <p id="popupMessage"></p>
+        </div>
+    </div>
+    <!-- Add a success popup to the HTML -->
+<!-- Add a success popup to the HTML -->
+<div id="successPopupOverlay" class="popup-overlay">
+    <div id="successPopup" class="popup">
+        <h3>Success</h3>
+        <p id="successPopupMessage"></p>
+        <button id="successPopupOkBtn" class="btn btn-primary">OK</button>
+    </div>
+</div>
+</div>
+</form>
+
+    
+    </div>
+    </form>
+   </body>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+        import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+        
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAjcSvOahCQNrY9LkjQMecHMOz2532MnS0",
+          authDomain: "new-ls-62615.firebaseapp.com",
+          projectId: "new-ls-62615",
+          storageBucket: "new-ls-62615.appspot.com",
+          messagingSenderId: "515328593430",
+          appId: "1:515328593430:web:0d82ff98a58398bf61ef37",
+          measurementId: "G-3WJXM3T53H"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db=getDatabase();
+        const auth=getAuth(app);
+        const dbref=ref(db);
+
+        let EmailInp=document.getElementById('emailInp');
+        const PassInp=document.getElementById('passwordInp');
+        const MainForm=document.getElementById('MainForm');
+
+
+        // let SignInUser=evt=>{
+        //     evt.preventDefault();
+        //     signInWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
+        //     .then((credentials)=>{
+        //         get(child(dbref,'UsersAuthList/' + credentials.user.uid)).then((snapshot)=>{
+        //             if(snapshot.exists){
+        //                 sessionStorage.setItem("user-info", JSON.stringify({
+        //                     firstname: snapshot.val().firstname,
+        //                     lastname: snapshot.val().lastname
+        //                 }))
+        //                 sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+        //                 window.location.href="new.html";
+        //             }
+        //         })
+
+        //     })
+        //     .catch((error)=>{
+        //         alert(error.message);
+        //         console.log(error.code);
+        //         console.log(error.message);
+        //     })
+        // }
+        // MainForm.addEventListener('submit', SignInUser);
+
+// Define the displayPopup function to show the error popup
+function displayPopup(message) {
+        document.getElementById('popupMessage').textContent = message;
+        document.getElementById('popupOverlay').style.display = 'block';
+    }
+
+    // Define the displaySuccessPopup function to show the success popup
+    function displaySuccessPopup(message) {
+        document.getElementById('successPopupMessage').textContent = message;
+        document.getElementById('successPopupOverlay').style.display = 'block';
+    }
+
+    // Add an event listener to show the popup when needed
+    MainForm.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        signInWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
+            .then((credentials) => {
+                get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
+                    if (snapshot.exists) {
+                        sessionStorage.setItem("user-info", JSON.stringify({
+                            firstname: snapshot.val().firstname,
+                            lastname: snapshot.val().lastname
+                        }));
+                        sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                        displaySuccessPopup("Login Successful"); // Display success popup
+                    }
+                });
+            })
+            .catch((error) => {
+                displayPopup("Invalid Login Credentials"); // Display the error popup with the error message
+                console.log(error.code);
+                console.log(error.message);
+            });
+    });
+
+    // Add an event listener to close the pop-ups
+    document.getElementById('popupClose').addEventListener('click', closePopup);
+    document.getElementById('successPopupOkBtn').addEventListener('click', function () {
+        document.getElementById('successPopupOverlay').style.display = 'none';
+    });
+    // Define the closePopup function to hide the popup
+function closePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
+}
+
+// Add an event listener to close the popup when the close button is clicked
+document.getElementById('popupClose').addEventListener('click', closePopup);
+
+// Add an event listener to close the success popup when the "OK" button is clicked
+document.getElementById('successPopupOkBtn').addEventListener('click', function () {
+    document.getElementById('successPopupOverlay').style.display = 'none';
+});
+
+// When the "OK" button in the success popup is clicked, redirect to new.html
+document.getElementById('successPopupOkBtn').addEventListener('click', function () {
+            document.getElementById('successPopupOverlay').style.display = 'none';
+            window.location.href = 'new.html'; // Redirect to new.html
+        });
+</script>
+</body>
+</html>
