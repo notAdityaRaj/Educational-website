@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADIVANA</title>
+    <link rel="icon" href="images/qsjvkfkf.png" type="image/x-icon" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,500;1,500&family=Roboto+Slab&family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+    label{display: inline-block; width: 80px}
+    input,select{width: 120px}
+
+    body {
+    width: 66%;
+    height: 93vh;
+    background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)no-repeat;
+    padding:20px;
+    font-family: 'Roboto Slab', serif;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:aqua;
+    background-color: #fff;
+    padding:20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: inline-block;
+    width: 120px;
+    color:#d1e8e2;
+
+    margin-right: 10px;
+    text-align: right;
+  }
+
+  input,
+  select {
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  button {
+    
+    margin-left:20%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background:  linear-gradient(to bottom, #3498db, #2980b9);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size:14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background:linear-gradient(to bottom, #2980b9, #3498db);
+  }
+.inputBox input
+{
+    color-scheme: dark;
+    padding: 5px 0;
+    margin-top:-4%;
+    font-size:16px;
+    margin:10px 0;
+    border:none;
+    border-bottom:2px solid white;
+    color:white;
+    background-color: transparent;
+    outline:none;
+    resize:none;
+
+}
+.btnNew{
+  left:50%;
+  position:relative;
+}
+select {
+  color-scheme: dark;
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Style the options */
+    option {
+      color-scheme: dark;
+      font-size: 14px;
+      padding: 5px;
+    }
+    </style>
+  </head>
+  <body>
+<div class="btnNew">
+    <div style="color:#ffcb9a; font-size:225%; position:relative; left:5%">Adding Batch Details</div>
+    <br><br>
+    <div class="inputBox">
+    <label>Batch Name</label> <input id="Namebox" type="text" required="required"> <br><br>
+    <label>Batch ID</label> <input id="Rollbox" type="text" required="required"> <br><br>
+    <label>Start Date</label> <input id="Startbox" type="date" required="required" > <br><br>
+    <label>End Date</label> <input id="Endbox" type="date" required="required"> <br><br>
+    <label>Timings</label><input id="Timebox" type="time" required="required"><br><br>
+    <label>Subject Name</label> <input id="Subbox" type="text" required="required"> <br><br>
+    <label>Teacher</label>
+    <select id="Teachbox" required="required">
+      <option value="" disabled selected>Select a teacher</option>
+    </select>
+      <br><br>
+    <label>Session</label>
+
+    <select id="Shiftbox" required="required">
+      <option value="Morning">Morning</option>
+      <option value="Evening">Evening</option>
+    </select></div>
+
+    <br>
+    <button id="Insbtn">Add</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+      import{getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
+      }
+      from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+      import { getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDT_ANzuq6_uYgLuhl3MW-48p8K_2Kbt2g",
+        authDomain: "batch-details.firebaseapp.com",
+        databaseURL: "https://batch-details-default-rtdb.firebaseio.com",
+        projectId: "batch-details",
+        storageBucket: "batch-details.appspot.com",
+        messagingSenderId: "574128376047",
+        appId: "1:574128376047:web:755c79cea25f68d17d731a",
+        measurementId: "G-H8NHEMRT3Z"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      
+    
+      const db =getFirestore();
+
+      let NameBox=document.getElementById("Namebox");
+      let RollBox=document.getElementById("Rollbox");
+      let StartBox=document.getElementById("Startbox");
+      let EndBox=document.getElementById("Endbox");
+      let TimeBox=document.getElementById("Timebox");
+      let SubBox=document.getElementById("Subbox");
+      let TeachBox=document.getElementById("Teachbox");
+      let ShiftBox=document.getElementById("Shiftbox");
+
+
+      let insBtn=document.getElementById("Insbtn");
+      let selBtn=document.getElementById("Selbtn");
+      let updBtn=document.getElementById("Updatebtn");
+      let delBtn=document.getElementById("Delbtn");
+
+      async function AddDocument_AutoID() {
+    var ref = collection(db, "Batch List");
+
+    const docRef = await addDoc(
+        ref, {
+            BatchName: NameBox.value,
+            BatchID: RollBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time: TimeBox.value,
+            Subject: SubBox.value,
+            Teacher: TeachBox.value, // Store the selected teacher value
+            Shift: ShiftBox.value
+        }
+    )
+    .then(() => {
+        Swal.fire({
+            title: 'Success',
+            text: 'Data added successfully',
+            icon: 'success',
+        });
+    })
+    .catch((error) => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Unsuccessful operation, error: ' + error,
+            icon: 'error',
+        });
+    });
+
+    console.log("document id is " + docRef.id);
+}
+
+async function AddDocument_CustomID() {
+  const batchName = NameBox.value;
+  const batchID = RollBox.value;
+  const startDate = StartBox.value;
+  const endDate = EndBox.value;
+  const timings = TimeBox.value;
+  const subjectName = SubBox.value;
+  const teacher = TeachBox.value;
+  const session = ShiftBox.value;
+
+  // Check if required fields are empty
+  if (!batchName || !batchID || !startDate || !endDate || !timings || !subjectName || !teacher || !session) {
+    Swal.fire({
+      title: 'Error',
+      text: 'Please fill out all required fields',
+      icon: 'error'
+    });
+    return; // Do not proceed with adding data
+  }
+
+  
+    var ref = doc(db, "Batch List", RollBox.value);
+
+    await setDoc(
+        ref, {
+            BatchName: NameBox.value,
+            BatchID: RollBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time: TimeBox.value,
+            Subject: SubBox.value,
+            Teacher: TeachBox.value, // Store the selected teacher value
+            Shift: ShiftBox.value
+        }
+    )
+    .then(() => {
+        Swal.fire({
+            title: 'Success',
+            text: 'Data added successfully',
+            icon: 'success',
+        });
+    })
+    .catch((error) => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Unsuccessful operation, error: ' + error,
+            icon: 'error',
+        });
+    });
+}
+
+      async function GetADocument(){
+        var ref=doc(db,"Batch List",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(docSnap.exists()){
+          NameBox.value=docSnap.data().BatchName;
+          StartBox.value=docSnap.data().StartTime;
+          EndBox.value=docSnap.data().EndTime;
+          TimeBox.value=docSnap.data().Time;
+          SubBox.value=docSnap.data().Subject;
+          TeachBox.value=docSnap.data().Teacher;
+          ShiftBox.value=docSnap.data().Shift;
+
+        }
+
+        else{
+          alert("No such Document");
+        }
+      }
+
+      async function UpdateFieldsInADocument(){
+        var ref=doc(db,"Batch List",RollBox.value);
+
+        await updateDoc(
+          ref, {
+            BatchName: NameBox.value,
+            StartTime: StartBox.value,
+            EndTime: EndBox.value,
+            Time:TimeBox.value,
+            Subject:SubBox.value,
+            Teacher:TeachBox.value,
+            Shift: ShiftBox.value
+          }
+        )
+        .then(()=>{
+          alert("Data updated successfully");
+        })
+        .catch((error)=>{
+          alert("Unsuccessful operation , error:"+error);
+        });
+      }
+
+      async function DeleteDocumnet(){
+        var ref=doc(db,"Batch List",RollBox.value);
+        const docSnap = await getDoc(ref);
+
+        if(!docSnap.exists()){
+          alert("Document does not exist");
+          return;
+      }
+
+      await deleteDoc(ref)
+      .then(()=>{
+        alert("Data deleted successfully");
+      })
+      .catch((error)=>{
+        alert("Unsuccessful operation, error:"+error);
+      });
+    }
+
+
+      insBtn.addEventListener("click", AddDocument_CustomID);
+      // selBtn.addEventListener("click", GetADocument);
+      // updBtn.addEventListener("click", UpdateFieldsInADocument);
+      // delBtn.addEventListener("click", DeleteDocumnet);
+
+      async function populateTeachBox() {
+    const Teachbox = document.getElementById("Teachbox");
+
+    // Fetch teacher names from Firestore
+    const querySnapshot = await getDocs(collection(db, "TheTeachersList"));
+    const teacherNames = new Set();
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      teacherNames.add(data.NameOfStd); // Replace "Name" with the actual field name in your Firestore document
+    });
+
+    Teachbox.innerHTML = '';
+
+    // Populate the "Teachbox" select element
+    teacherNames.forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      Teachbox.appendChild(option);
+    });
+  }
+
+  // Call the function to populate the "Teachbox" select on page load
+  populateTeachBox();
+    </script>
+
+  </body>
+</html>
