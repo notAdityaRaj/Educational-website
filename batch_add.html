@@ -14,7 +14,7 @@
     input,select{width: 120px}
 
     body {
-    width: 66%;
+    width: 63%;
     height: 93vh;
     background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)no-repeat;
     padding:20px;
@@ -51,8 +51,7 @@
   }
 
   button {
-    
-    margin-left:20%;
+    margin:5px;
     padding: 10px 20px;
     margin-top: 10px;
     background:  linear-gradient(to bottom, #3498db, #2980b9);
@@ -94,6 +93,12 @@ select {
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    .text{
+      color:#ffcb9a;
+       font-size:225%;
+        position:relative;
+         left:5%
+    }
 
     /* Style the options */
     option {
@@ -101,11 +106,127 @@ select {
       font-size: 14px;
       padding: 5px;
     }
+    @media (max-width:1300px) {
+      .inputBox{
+        margin-left:-5%;
+      }
+      .btn{
+        margin-left:-5%;
+      }
+      .btnNew{
+        margin-left:-5%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:870px) {
+      .inputBox{
+        margin-left:-10%;
+      }
+      .btn{
+        margin-left:-10%;
+      }
+      .btnNew{
+        margin-left:-10%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:660px) {
+      .inputBox{
+        margin-left:-15%;
+      }
+      .btn{
+        margin-left:-15%;
+      }
+      .btnNew{
+        margin-left:-15%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:550px) {
+      .inputBox{
+        margin-left:-20%;
+      }
+      .btn{
+        margin-left:-20%;
+      }
+      .text{
+        margin-left:-20%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:520px) {
+      .inputBox{
+        margin-left:-28%;
+      }
+      .btn{
+        margin-left:-28%;
+      }
+      .text{
+        margin-left:-28%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:480px) {
+      .inputBox{
+        margin-left:-35%;
+      }
+      .btn{
+        margin-left:-35%;
+      }
+      .text{
+        margin-left:-35%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:460px) {
+      .inputBox{
+        margin-left:-38%;
+        font-size:small;
+      }
+      .btn{
+        margin-left:-35%;
+      }
+      .text{
+        margin-left:-38%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:450px) {
+      .inputBox{
+        margin-left:-42%;
+        font-size:smaller;
+      }
+      .btn{
+        margin-left:-42%;
+
+      }
+      .text{
+        margin-left:-35%;
+        font-size: 180%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
     </style>
   </head>
   <body>
 <div class="btnNew">
-    <div style="color:#ffcb9a; font-size:225%; position:relative; left:5%">Adding Batch Details</div>
+    <div class="text">Adding Batch Details</div>
     <br><br>
     <div class="inputBox">
     <label>Batch Name</label> <input id="Namebox" type="text" required="required"> <br><br>
@@ -127,7 +248,12 @@ select {
     </select></div>
 
     <br>
-    <button id="Insbtn">Add</button>
+    <div class="btn">
+    <button id="Insbtn" style="margin-left:5%;">Add</button>
+    <button id="Delbtn">Delete</button>
+    <button id="Selbtn">Retrieve</button>
+    <button id="Updatebtn">Update</button>
+  </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module">
@@ -323,9 +449,9 @@ async function AddDocument_CustomID() {
 
 
       insBtn.addEventListener("click", AddDocument_CustomID);
-      // selBtn.addEventListener("click", GetADocument);
-      // updBtn.addEventListener("click", UpdateFieldsInADocument);
-      // delBtn.addEventListener("click", DeleteDocumnet);
+      selBtn.addEventListener("click", GetADocument);
+      updBtn.addEventListener("click", UpdateFieldsInADocument);
+      delBtn.addEventListener("click", DeleteDocumnet);
 
       async function populateTeachBox() {
     const Teachbox = document.getElementById("Teachbox");
