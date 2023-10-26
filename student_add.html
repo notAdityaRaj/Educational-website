@@ -72,6 +72,7 @@
   }
   .inputBox input
 {
+  margin-left:-10%;
     color-scheme: dark;
     padding: 5px 0;
     margin-top:-2%;
@@ -105,12 +106,154 @@ option {
       position: relative;
       left: 65%;
     }
-   
+    @media (max-width:1300px) {
+      .inputBox{
+        margin-left:-5%;
+      }
+      .btn{
+        margin-left:-5%;
+      }
+      .btnNew{
+        margin-left:-5%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media(max-width:1200px){
+      .inputBox{
+        margin-left:-10%;
+      }
+      .text{
+        margin-left:-4%;
+      }
+    }
+    @media(max-width:970px){
+      .inputBox{
+        margin-left:-17%;
+      }
+      .text{
+        margin-left:-12%;
+      }
+    }
+    @media (max-width:870px) {
+      .inputBox{
+        margin-left:-10%;
+      }
+      .btn{
+        margin-left:-10%;
+      }
+      .btnNew{
+        margin-left:-10%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media(max-width:820px){
+      .inputBox{
+        margin-left:-26%;
+      }
+      .text{
+        margin-left:-20%;
+      }
+    }
+    @media (max-width:660px) {
+      .inputBox{
+        margin-left:-38%;
+      }
+      .btn{
+        margin-left:-15%;
+      }
+      .btnNew{
+        margin-left:-15%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+      .text{
+        margin-left:-35%;
+      }
+    }
+    @media(max-width:620px)
+    {
+      .inputBox{
+        margin-left:-45%;
+      }
+      .text{
+        margin-left:-42%;
+      }
+    }
+    @media (max-width:550px) {
+      .inputBox{
+        margin-left:-59%;
+      }
+      .btn{
+        margin-left:-20%;
+      }
+      .text{
+        margin-left:-55%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:520px) {
+      .inputBox{
+        margin-left:-66%;
+      }
+      .btn{
+        margin-left:-28%;
+      }
+      .text{
+        margin-left:-60%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:480px) {
+      .inputBox{
+        margin-left:-100%;
+      }
+      .btn{
+        margin-left:20%;
+      }
+      .text{
+        margin-left:-74%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:460px) {
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:450px) {
+      .inputBox{
+        margin-left:-120%;
+      }
+      .text{
+        margin-left:-86%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+     .text{
+      color:#ffcb9a;
+      font-size:225%;
+      position:relative;
+      left:38%
+    }
     </style>
   </head>
   <body>
     <div class="container">
-    <h1>Student Addition Page</h1>
+      <div class="text">Student Addition Page</div>
+      <br>
     <div class="inputBox">
     <label>Name</label> <input id="Namebox" type="text"> <br><br>
     <label>Roll No.</label> <input id="Rollbox" type="text"> <br><br>
@@ -124,9 +267,10 @@ option {
     </select><br><br>
     
 <br>
-<br>
+
+    <div class="btn">
     <button id="Addbtn">ADD</button>
-    <div></div>
+    </div>
 </div>
     <!-- <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>; -->
    
