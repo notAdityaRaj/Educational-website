@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,500;1,500&family=Roboto+Slab&family=Satisfy&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
 </head>
 <style>
     *{
@@ -221,15 +221,23 @@ table {
     input[type="date"]{
         font-size: 55%;
       }
-} 
-@media(max-width:500px){
-    table{
+    table.glass{
         margin-left:-10%;
     }
+} 
+@media(max-width:480px){
+    table.glass {
+         font-size:14px ;
+    }
 }
-@media(max-width:460px){
-    table{
-        width:60;
+@media(max-width:450px){
+    table.glass {
+         font-size:12px ;
+    }
+}
+@media(max-width:410px){
+    table.glass {
+         font-size:10px ;
     }
 }
 button{
@@ -250,6 +258,12 @@ button{
   .user-greeting {
         color: #d1e8e2; /* Change this color to your desired color (e.g., red) */
        }
+       .custom-confirm-button {
+    left:-8%;
+       }
+.custom-cancel-button {
+    left:1%;
+}
 </style>
 <body>
     <section class="hero"> 
@@ -264,7 +278,7 @@ button{
             </ul>
             <div class="bx bx-menu" id="menu-icon"></div>
         </header>
-        <p style=" color:#ffcb9a; font-size:40px">Batch Details</p>
+        <p style=" color:#ffcb9a; font-size:40px" class="text">Batch Details</p>
         <button type="button"><a href="batch_add.html">Add</a></button>
         <br>
     <div class="container mt-3">
@@ -282,7 +296,7 @@ button{
             
         </table>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js"></script>
     <script type="module">
         var stdNo=0;
         var tbody=document.getElementById('tbody1');
@@ -396,18 +410,24 @@ let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
     let CreateAccountLink; // declare CreateAccountLink outside functions to access it globally
 
     let Signout = () => {
-        sessionStorage.removeItem("user-creds");
-        sessionStorage.removeItem("user-info");
-        GreetHead.innerText = '';
-        if (SignoutBtn) {
-            SignoutBtn.style.display = 'none'; // hide the sign-out link
-        }
-        if (CreateAccountLink) {
-            CreateAccountLink.innerText = 'Login';
-            CreateAccountLink.href = '1.html';
-            CreateAccountLink.style.display = 'block'; // display the create account link
-            CreateAccountLink.classList.add('navlist-link'); // add the appropriate class for styling
-        }
+            Swal.fire({
+                title: 'Sign Out Confirmation',
+                text: 'Are you sure you want to sign out?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Sign Out',
+                cancelButtonText: 'Cancel',
+                customClass: {
+        confirmButton: 'custom-confirm-button',
+        cancelButton: 'custom-cancel-button',
+    },
+            }).then((result) => {
+                if (result.isConfirmed) {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location.href = 'index.html';
+            }
+        });
     }
 
     let CheckCred = () => {
@@ -417,7 +437,7 @@ let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
 
             // Sign out link
             SignoutBtn = document.createElement('a');
-            SignoutBtn.href = 'index.html'; // replace with the appropriate link
+            SignoutBtn.href = '#'; // replace with the appropriate link
             SignoutBtn.innerText = 'Sign Out';
             SignoutBtn.onclick = Signout;
             SignoutBtn.classList.add('navlist-link'); // add the appropriate class for styling
