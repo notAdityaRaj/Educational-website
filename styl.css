@@ -57,6 +57,7 @@ header{
     background:linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%)  no-repeat;
 }
 section{
+    top:-100%;
     padding:0 19%;
 }
 .hero-text h1{
@@ -280,13 +281,23 @@ section{
     input[type="date"]{
         font-size: 55%;
       }
-    table{
-        left:-10%;
+    table.glass{
+        margin-left:-10%;
     }
 } 
-@media(max-width:520px){
-    table {
-        margin-left: -10%; /* Adjust this value as needed */
+@media(max-width:480px){
+    table.glass {
+         font-size:14px ;
+    }
+}
+@media(max-width:450px){
+    table.glass {
+         font-size:12px ;
+    }
+}
+@media(max-width:410px){
+    table.glass {
+         font-size:10px ;
     }
 }
 .glass{
