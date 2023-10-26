@@ -156,8 +156,8 @@
 }
     @media (max-width: 465px){
     .contactForm {
-    width: 250%;
-    margin-left:-70%;
+    width: 300%;
+    margin-left:-90%;
     } 
 }
     @media (max-width: 391px){
@@ -232,6 +232,7 @@
         <input type="password" id="passwordInp" name=""  required="required">
         <span for="floatingPassword">Password</span>
       </div>
+      <label id="forgotpasslabel" style="color:white;cursor:pointer; margin-top:5px;;font-size: small; position: relative; left: 30%; top:-3%;">Forgot Password?</label>
       <pre class="sign">New to <i>ADIVANA</i>?<a href="sign.html"> Sign up</a></pre>
       <button type="submit" class="btn btn-primary" style="float: right;">Log In</button>
 
@@ -251,6 +252,13 @@
         <button id="successPopupOkBtn" class="btn btn-primary">OK</button>
     </div>
 </div>
+<div id="alertPopupOverlay" class="popup-overlay">
+    <div id="alertPopup" class="popup">
+        <h3>Alert</h3>
+        <p id="alertPopupMessage"></p>
+        <button id="alertPopupOkBtn" class="btn btn-primary">OK</button>
+    </div>
+</div>
 </div>
 </form>
 
@@ -264,7 +272,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
         import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword , sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
         
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -291,6 +299,7 @@
         let EmailInp=document.getElementById('emailInp');
         const PassInp=document.getElementById('passwordInp');
         const MainForm=document.getElementById('MainForm');
+        const ForgotPassLabel=document.getElementById("forgotpasslabel");
 
 
         // let SignInUser=evt=>{
@@ -327,6 +336,10 @@ function displayPopup(message) {
     function displaySuccessPopup(message) {
         document.getElementById('successPopupMessage').textContent = message;
         document.getElementById('successPopupOverlay').style.display = 'block';
+    }
+    function displayAlertPopup(message) {
+        document.getElementById('alertPopupMessage').textContent = message;
+        document.getElementById('alertPopupOverlay').style.display = 'block';
     }
 
     // Add an event listener to show the popup when needed
@@ -369,12 +382,29 @@ document.getElementById('popupClose').addEventListener('click', closePopup);
 document.getElementById('successPopupOkBtn').addEventListener('click', function () {
     document.getElementById('successPopupOverlay').style.display = 'none';
 });
+document.getElementById('alertPopupOkBtn').addEventListener('click', function () {
+        document.getElementById('alertPopupOverlay').style.display = 'none';
+    });
 
 // When the "OK" button in the success popup is clicked, redirect to new.html
 document.getElementById('successPopupOkBtn').addEventListener('click', function () {
             document.getElementById('successPopupOverlay').style.display = 'none';
             window.location.href = 'new.html'; // Redirect to new.html
         });
+        let ForgotPassword=()=>{
+            sendPasswordResetEmail(auth, EmailInp.value)
+            .then(()=>{
+                displayAlertPopup("A Password Reset Link has been sent to your email");
+
+            })
+            .catch((error)=>{
+                displayAlertPopup("Failed to send the Password Reset Link");
+                console.log(error.code);
+                console.log(error.message);
+            })
+        }
+        ForgotPassLabel.addEventListener("click", ForgotPassword);
+
 </script>
 </body>
 </html>
