@@ -58,7 +58,7 @@
 
   button {
     padding: 10px 20px;
-    margin-top: 10px;
+    margin: 10px;
     background-color: #3498db;
     color: #fff;
     border: none;
@@ -66,7 +66,8 @@
     cursor: pointer;
     transition: background-color 0.3s;
     position: relative;
-    left: 55%;
+    left: 38%;
+
   }
 
   button:hover {
@@ -101,12 +102,122 @@ option {
       font-size: 14px;
       padding: 5px;
     }
-    
+    @media (max-width:1300px) {
+      .inputBox{
+        margin-left:-10%;
+      }
+      .text{
+        margin-left:-5%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media(max-width:1130px)
+    {
+      .inputBox{
+        margin-left:-10%;
+      }
+
+    }
+    @media (max-width:870px) {
+      .inputBox{
+        margin-left:-60%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+      .text{
+        margin-left:-40%;
+      }
+    }
+    @media (max-width:660px) {
+      .inputBox{
+        margin-left:-70%;
+      }
+    .text{
+      margin-left:-45%;
+    }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:550px) {
+      .inputBox{
+        margin-left:-80%;
+      }
+      .text{
+        font-size:190%;
+        margin-left:-50%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:520px) {
+      .inputBox{
+        margin-left:-100%;
+      }
+      .text{
+        margin-left:-55%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:480px) {
+      .inputBox{
+        margin-left:-115%;
+      }
+      .text{
+        margin-left:-60%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:460px) {
+      .inputBox{
+        margin-left:-130%;
+      }
+      .text{
+        margin-left:-70%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media (max-width:450px) {
+      .inputBox{
+        margin-left:-150%;
+      }
+      .text{
+        margin-left:-80%;
+        font-size: 180%;
+      }
+      .inputBox input{
+        width:40%;
+      }
+    }
+    @media(max-width:420px){
+      .btn{
+        margin:-1%;
+      }
+      .inputBox{
+        margin-left:-171%;
+      }
+    }
+    .text{
+      color:#ffcb9a;
+       font-size:225%;
+        position:relative;
+         left:40%
+    }
     </style>
   </head>
   <body>
     <div class="container">
-    <h1>Teachers Addition Page</h1>
+      <div class="text">Teachers Addition Page</div>
     <div class="inputBox">
     <label>Name</label> <input id="Namebox" type="text" required="required"> <br><br>
     <label>Section</label> <input id="Secbox" type="text" required="required"> <br><br>
@@ -118,7 +229,11 @@ option {
     </select>
 
     <br><br>
+    <div class="btn">
     <button id="Insbtn">Add</button>
+    <button id="Delbtn">Delete</button>
+    <button id="Selbtn">Retrieve</button>
+    <button id="Updatebtn">Update</button></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -174,18 +289,30 @@ option {
             Gender: GenBox.value
           }
         )
-        .then(()=>{
-          alert("Data added successfully");
-        })
-        .catch((error)=>{
-          alert("Unsuccessful operation , error:"+error);
+    .then(() => {
+        Swal.fire({
+            title: 'Success',
+            text: 'Data added successfully',
+            icon: 'success',
         });
-        console.log("documnet id is"+ docRef.id);
-      }
+    })
+    .catch((error) => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Unsuccessful operation, error: ' + error,
+            icon: 'error',
+        });
+    });
 
+    console.log("document id is " + docRef.id);
+}
       async function AddDocument_CustomID(){
         var ref=doc(db,"TheTeachersList",NameBox.value);
-
+        
+        if (NameBox.value === "" || SecBox.value === "" || GenBox.value === "") {
+    Swal.fire("Error!", "All fields are required", "error");
+    return;
+  }
         try{
         await setDoc(
           ref, {
@@ -247,9 +374,9 @@ option {
 
 
       insBtn.addEventListener("click", AddDocument_CustomID);
-      // selBtn.addEventListener("click", GetADocument);
-      // updBtn.addEventListener("click", UpdateFieldsInADocument);
-      // delBtn.addEventListener("click", DeleteDocumnet);
+      selBtn.addEventListener("click", GetADocument);
+      updBtn.addEventListener("click", UpdateFieldsInADocument);
+      delBtn.addEventListener("click", DeleteDocumnet);
 
 
 
